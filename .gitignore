@@ -1,0 +1,6 @@
+# Purpose: Exclude dependencies, caches and local error exports.
+node_modules/
+.local/
+local-data/
+dist/
+.jev-cache*
