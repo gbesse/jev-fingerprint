@@ -30,3 +30,11 @@ Run `npm run check && npm run typecheck && npm test && npm run demo`; CI uses No
 [jev-pairs](https://github.com/gbesse/jev-pairs), [DecisionPacks](https://github.com/gbesse/decisionpacks), and [Question Forge](https://github.com/gbesse/question-forge).
 
 Independent project; not affiliated with TypeSafe AI. [API docs](https://docs.typesafe.ai/api) · [model notes](https://docs.typesafe.ai/model-jaggedness/jev-1.13/)
+
+## October 2026 improvement · Amélioration d’octobre 2026 · Mejora de octubre de 2026
+
+The grouping run now rejects out-of-range comparison scores, including values loaded from a prior cache, and invalid merge thresholds. Run `npm test` offline.
+
+Le regroupement refuse désormais les scores de comparaison hors de [0,1], y compris ceux d’un cache antérieur, ainsi que les seuils de fusion invalides. Lancez `npm test` hors ligne.
+
+La agrupación ahora rechaza puntuaciones de comparación fuera de [0,1], incluso las de una caché anterior, y umbrales de fusión inválidos. Ejecute `npm test` sin conexión.
