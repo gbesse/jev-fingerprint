@@ -38,3 +38,7 @@ The grouping run now rejects out-of-range comparison scores, including values lo
 Le regroupement refuse désormais les scores de comparaison hors de [0,1], y compris ceux d’un cache antérieur, ainsi que les seuils de fusion invalides. Lancez `npm test` hors ligne.
 
 La agrupación ahora rechaza puntuaciones de comparación fuera de [0,1], incluso las de una caché anterior, y umbrales de fusión inválidos. Ejecute `npm test` sin conexión.
+
+## Contrôle d’adoption · Adoption check · Comprobación de adopción
+
+[Français : essayer un cas concret](examples/adoption-check.md) · [English: try a concrete case](examples/adoption-check.md) · [Español: pruebe un caso concreto](examples/adoption-check.md).
