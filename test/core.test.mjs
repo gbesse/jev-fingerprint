@@ -7,3 +7,17 @@ test('title is member choice and impact code-owned',async()=>{const p=new FakeJe
 test('incremental cache avoids pair repurchase',async()=>{const e=[{id:'a',message:'A'},{id:'b',message:'B'}],p=new FakeJev({'a|b':.9}),first=await fingerprint(e,p);const calls=p.calls.length;await fingerprint(e,p,first);assert.equal(p.calls.length-calls,1)});
 test('HTML is offline',()=>assert.doesNotMatch(htmlReport({groups:[]}),/http/));
 test('invalid cached scores and thresholds cannot merge unrelated errors',async()=>{const events=[{id:'a',message:'A'},{id:'b',message:'B'}];await assert.rejects(fingerprint(events,new FakeJev(),{cache:{'a|b':1.5}}),/invalid comparison probability/);await assert.rejects(fingerprint(events,new FakeJev(),null,-0.1),/threshold/)});
+
+test('reused event IDs with changed content and changed fixtures never replay old comparisons',async()=>{
+ const events=[{id:'a',message:'A'},{id:'b',message:'B'}],provider=new FakeJev({'a|b':.9});
+ const first=await fingerprint(events,provider),calls=provider.calls.length;
+ const next=await fingerprint([{...events[0],message:'changed'},events[1]],provider,first);assert.equal(provider.calls.length-calls,2);
+ provider.fixtures['a|b']=.1;const revised=await fingerprint(events,provider,next);assert.equal(revised.groups.length,2);
+});
+test('existing cache remains unchanged if a later title is invalid',async()=>{
+ const events=[{id:'a',message:'A'},{id:'b',message:'B'}],existing={cache:{}},provider={cacheIdentity:'synthetic-v1',compare:async()=>.9,title:async()=> 'invented title'};
+ await assert.rejects(fingerprint(events,provider,existing),/Title outside/);assert.deepEqual(existing.cache,{});
+});
+test('duplicate identities are rejected before semantic calls',async()=>{
+ const provider=new FakeJev();await assert.rejects(fingerprint([{id:'same',message:'A'},{id:'same',message:'B'}],provider),/Unique/);assert.equal(provider.calls.length,0);
+});

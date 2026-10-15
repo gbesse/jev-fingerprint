@@ -42,3 +42,11 @@ La agrupación ahora rechaza puntuaciones de comparación fuera de [0,1], inclus
 ## Contrôle d’adoption · Adoption check · Comprobación de adopción
 
 [Français : essayer un cas concret](examples/adoption-check.md) · [English: try a concrete case](examples/adoption-check.md) · [Español: pruebe un caso concreto](examples/adoption-check.md).
+
+## Content-bound comparisons / Comparaisons liées / Comparaciones vinculadas
+
+EN: Incremental cache keys now bind complete representative events and provider identity, rather than only event IDs. Changed messages, metadata or fake fixtures require re-evaluation. Legacy ID-only entries are ignored; invalid cached numbers still fail. Custom providers reuse scores only with a stable, configuration-specific `cacheIdentity`. Inputs and caches are snapshotted, and titles must be an actual member message. A title failure cannot mutate the previous cache. This checks declared inputs, not real grouping quality or independently authenticated provider identity.
+
+FR : Le cache incrémental lie désormais événements représentatifs complets et identité fournisseur, au lieu des seuls ID. Messages, métadonnées ou fixtures modifiés exigent une nouvelle évaluation. Les anciennes clés par ID sont ignorées ; des nombres invalides restent refusés. Un fournisseur personnalisé ne réutilise les scores qu’avec un `cacheIdentity` stable propre à sa configuration. Entrées et cache sont capturés ; le titre doit être un message réel du groupe. Un titre invalide ne modifie pas le cache précédent. Cela vérifie des entrées déclarées, pas la qualité réelle du regroupement ni une identité authentifiée indépendamment.
+
+ES: La caché incremental vincula eventos representativos completos e identidad del proveedor, no solo ID. Mensajes, metadatos o fixtures modificados exigen reevaluación. Ignora claves antiguas por ID; números incorrectos siguen rechazados. Proveedores personalizados solo reutilizan scores con `cacheIdentity` estable de su configuración. Captura entradas/cachés; el título debe ser mensaje real del grupo. Un título inválido no modifica caché anterior. Comprueba entradas declaradas, no calidad real de agrupación ni identidad autenticada independientemente.
