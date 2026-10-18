@@ -21,3 +21,20 @@ test('existing cache remains unchanged if a later title is invalid',async()=>{
 test('duplicate identities are rejected before semantic calls',async()=>{
  const provider=new FakeJev();await assert.rejects(fingerprint([{id:'same',message:'A'},{id:'same',message:'B'}],provider),/Unique/);assert.equal(provider.calls.length,0);
 });
+
+
+test('comparison budget fails before comparisons or titles rather than returning partial clusters',async()=>{
+ const events=['Alpha','Beta','Gamma'].map((message,i)=>({id:String(i),message}));
+ for(const maxComparisons of [0,1,2]){const provider=new FakeJev();await assert.rejects(fingerprint(events,provider,null,.5,{maxComparisons}),/Comparison budget exceeded/);assert.equal(provider.calls.length,0);}
+ const provider=new FakeJev(),result=await fingerprint(events,provider,null,.5,{maxComparisons:3});assert.equal(result.judged.length,3);assert.equal(provider.calls.length,6);
+});
+test('default pair budget and malformed limits never dispatch semantic work',async()=>{
+ const events=Array.from({length:46},(_,i)=>({id:String(i),message:'unique event '+String.fromCharCode(65+Math.floor(i/26))+String.fromCharCode(65+i%26)}));
+ const provider=new FakeJev();await assert.rejects(fingerprint(events,provider),/Comparison budget exceeded/);
+ for(const maxComparisons of [NaN,Infinity,-1,.5,100001])await assert.rejects(fingerprint(events,provider,null,.5,{maxComparisons}),/Invalid comparison budget/);
+ assert.equal(provider.calls.length,0);
+});
+test('blocked cross-service pairs do not consume comparison budget',async()=>{
+ const provider=new FakeJev(),result=await fingerprint([{id:'a',message:'Alpha',service:'a'},{id:'b',message:'Beta',service:'b'}],provider,null,.5,{maxComparisons:0});
+ assert.equal(result.judged.length,0);assert.equal(provider.calls.length,2);
+});
