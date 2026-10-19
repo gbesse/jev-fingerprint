@@ -57,3 +57,11 @@ FR : `fingerprint(events, provider, existing, threshold, { maxComparisons: 1000 
 EN: `fingerprint(events, provider, existing, threshold, { maxComparisons: 1000 })` rejects more than 1,000 candidate pairs by default **before any comparison or title call**. The integer limit accepts 0–100,000 and counts cached pairs too, after service/level/frame blocking. No partial clustering is returned. It does not bound title calls (one per group), CPU time, tokens or the total bill. Low-level `candidates` remains uncapped. Narrow the window or partition events; raising the limit requires reviewing cost.
 
 ES: `fingerprint(events, provider, existing, threshold, { maxComparisons: 1000 })` rechaza por defecto más de 1.000 pares candidatos **antes de cualquier llamada** de comparación o título. El límite entero admite 0–100.000 y cuenta pares en caché tras el filtrado por servicio/nivel/marco. No devuelve agrupaciones parciales. No limita títulos (uno por grupo), CPU, tokens ni factura total. La API básica `candidates` sigue sin límite. Reduzca la ventana o particione eventos; aumentar el límite exige revisar el coste.
+
+## Fusions contradictoires / Contradictory merges / Fusiones contradictorias
+
+FR — Les arêtes positives sont examinées par probabilité décroissante, puis identifiants. Une fusion est refusée si elle introduit une paire évaluée sous le seuil ou des métadonnées bloquantes incompatibles ; `mergeConflicts` conserve le témoin. C’est une règle gloutonne reproductible, sans optimalité globale ni conclusion sur les paires non évaluées.
+
+EN — Positive edges are processed by descending probability, then identifiers. Merges that introduce an observed below-threshold pair or incompatible blocking metadata are rejected, with witnesses in `mergeConflicts`. This is a reproducible greedy rule, without global optimality or conclusions about unjudged pairs.
+
+ES — Aristas positivas se procesan por probabilidad descendente y después identificadores. Se rechazan fusiones con pares evaluados bajo el umbral o metadatos incompatibles; `mergeConflicts` conserva el testigo. Es una regla voraz reproducible, sin optimalidad global ni conclusiones sobre pares no evaluados.
