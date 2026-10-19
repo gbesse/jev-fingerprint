@@ -1,6 +1,6 @@
 {
   "name": "@gbesse/jev-fingerprint",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Semantic error grouping after deterministic normalization and exact clustering.",
   "type": "module",
   "exports": {
